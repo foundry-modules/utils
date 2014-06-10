@@ -19,7 +19,7 @@ $.fn.htmlData = function(prefix) {
 
     var re = new RegExp("^" + "data-" + (prefix || "") + "-(.*)", "i"),
         parts,
-        data = ();
+        data = {};
 
     // Extract options from data attributes
     $.each(this[0].attributes, function(i, attr){
