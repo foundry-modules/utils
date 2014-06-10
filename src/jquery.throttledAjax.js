@@ -36,8 +36,18 @@ var self = $.Ajax = function(options) {
 					request.notify
 				);
 
+
+		var version = $.joomla.version.split("."),
+			majorVersion = version[0],
+			minorVersion = version[1],
+			requestInterval = self.requestInterval;
+
+		if (majorVersion >= 3 && minorVersion >= 2) {
+			requestInterval = 0;
+		}
+
 		// Mark this queue as resolved
-		setTimeout(queue.resolve, self.requestInterval);
+		setTimeout(queue.resolve, requestInterval);
 	});
 
 	return request;
@@ -48,3 +58,5 @@ self.queue = $.Threads({threadLimit: 1});
 self.requestInterval = 1200;
 
 })();
+
+
