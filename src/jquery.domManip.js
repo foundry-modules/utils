@@ -15,7 +15,7 @@
  */
 
 $.fn.tagName = function(){
-    return this[0].tagName;
+    return (this[0] || {}).tagName;
 };
 
 $.create = function(tagName) {
@@ -23,7 +23,6 @@ $.create = function(tagName) {
 };
 
 $.fn.editable = function(editable) {
-    $.isUndefined(editable) && (editable=true);
-    this[editable ? "attr" : "removeAttr"]("contenteditable", true);
-    return this;
+    if ($.isUndefined(editable)) return this.prop("contenteditable")==="true";
+    return this.prop("contenteditable", editable);
 }
