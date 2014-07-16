@@ -1,6 +1,6 @@
 /**
- * jquery.fn.switchClass
- * Swaps a classname for another classname that bears identical prefix.
+ * jquery.classManip
+ * Utilities to manipulate classnames.
  *
  * Part of the jQuery Utils family:
  * https://github.com/jstonne/jquery.utils
@@ -31,4 +31,9 @@ $.fn.switchClass = function(classname, delimiter){
 
 		$el.attr("class", classnames.join(" "));
 	});
+};
+
+$.fn.activateClass = function(className) {
+    this.prevObject.removeClass(className);
+    return $(this).addClass(className);
 };
