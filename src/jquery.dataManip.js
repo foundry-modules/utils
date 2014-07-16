@@ -1,7 +1,6 @@
 /**
  * jquery.fn.htmlData
- *
- * Converts inline data attributes into objects.
+ * Utilities to handle data within jQuery elements.
  *
  * Part of the jQuery Utils family:
  * https://github.com/jstonne/jquery.utils
