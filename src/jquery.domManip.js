@@ -21,3 +21,9 @@ $.fn.tagName = function(){
 $.create = function(tagName) {
     return $(document.createElement(tagName));
 };
+
+$.fn.editable = function(editable) {
+    $.isUndefined(editable) && (editable=true);
+    this[editable ? "attr" : "removeAttr"]("contenteditable", true);
+    return this;
+}
