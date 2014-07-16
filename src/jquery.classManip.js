@@ -14,6 +14,18 @@
  *
  */
 
+/**
+ * $.fn.switchClass
+ * Swaps a classname for another classname that bears identical prefix.
+ *
+ * $("div").switchClass("state-busy")l;
+ *
+ * Before:
+ * <div class="state-idle"></div>
+ *
+ * After:
+ * <div class="state-busy"></div>
+ */
 $.fn.switchClass = function(classname, delimiter){
 
 	var delimiter = delimiter || "-",
@@ -33,6 +45,23 @@ $.fn.switchClass = function(classname, delimiter){
 	});
 };
 
+/**
+ * $.fn.activateClass
+ * Add classname on current set of elements and
+ * remove classname on previous set of elements.
+ *
+ * $(".item").find("[data-id=64]").activateClass("active");
+ *
+ * Before:
+ * <div class="item active" data-id="62"></div>
+ * <div class="item" data-id="63"></div>
+ * <div class="item" data-id="64"></div>
+ *
+ * After:
+ * <div class="item" data-id="62"></div>
+ * <div class="item" data-id="63"></div>
+ * <div class="item active" data-id="64"></div>
+ */
 $.fn.activateClass = function(className) {
     this.prevObject.removeClass(className);
     return $(this).addClass(className);
