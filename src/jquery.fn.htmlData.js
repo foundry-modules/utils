@@ -17,7 +17,7 @@
 
 $.fn.htmlData = function(prefix) {
 
-    var re = new RegExp("^" + "data-" + (prefix || "") + "-(.*)", "i"),
+    var re = new RegExp("^" + "data-" + (prefix ? prefix + "-" : "") + "(.*)", "i"),
         parts,
         data = {};
 
