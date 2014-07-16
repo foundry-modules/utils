@@ -37,9 +37,9 @@ $.Task = function(props) {
             },
             process: function() {
 
-                if (!task.promise) {
+                if (!task._promise) {
 
-                    task.promise =
+                    task._promise =
                         $.when.apply($, task.list)
                             .then(
                                 task.resolve,

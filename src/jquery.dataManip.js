@@ -1,7 +1,6 @@
 /**
  * jquery.fn.htmlData
- *
- * Converts inline data attributes into objects.
+ * Utilities to handle data within jQuery elements.
  *
  * Part of the jQuery Utils family:
  * https://github.com/jstonne/jquery.utils
@@ -15,9 +14,13 @@
  *
  */
 
+/**
+ * jquery.fn.htmlData
+ * Converts inline data attributes into objects.
+ */
 $.fn.htmlData = function(prefix) {
 
-    var re = new RegExp("^" + "data-" + (prefix || "") + "-(.*)", "i"),
+    var re = new RegExp("^" + "data-" + (prefix ? prefix + "-" : "") + "(.*)", "i"),
         parts,
         data = {};
 
@@ -43,3 +46,16 @@ $.fn.htmlData = function(prefix) {
 
     return data;
 };
+
+/**
+ * jquery.fn.defineData
+ * Creates persistent data that cannot be changed.
+ */
+$.fn.defineData = function(name, value) {
+
+    if (this.data(name)===undefined) {
+        this.data(name, value);
+    }
+
+    return this;
+}
