@@ -20,43 +20,34 @@
 
 var self = $.Ajax = function(options) {
 
-	var request = $.Deferred(),
-		args = arguments;
+    // Start ajax manually
+    options.autostart = false;
 
-	// Allow others to decorate the request object
-	$.isPlainObject(options) && $.isFunction(options.beforeCreate) && options.beforeCreate(request);
+	var ajax = $.ajax(options);
 
-	self.queue.addDeferred(function(queue){
+    self.queue
+        .addDeferred(function(queue){
 
-		request.xhr =
-			$.ajax.apply(null, args)
-				.pipe(
-					request.resolve,
-					request.reject,
-					request.notify
-				);
+            // Start ajax now
+            ajax.send();
 
+    		// Mark this queue as resolved
+    		setTimeout(queue.resolve, self.interval);
+    	});
 
-		var version = $.joomla.version.split("."),
-			majorVersion = version[0],
-			minorVersion = version[1],
-			requestInterval = self.requestInterval;
-
-		if (majorVersion >= 3 && minorVersion >= 2) {
-			requestInterval = 0;
-		}
-
-		// Mark this queue as resolved
-		setTimeout(queue.resolve, requestInterval);
-	});
-
-	return request;
+	return ajax;
 }
 
-self.queue = $.Threads({threadLimit: 1});
+self.queue    = $.Threads({threadLimit: 1});
+self.interval = 1200;
 
-self.requestInterval = 1200;
+// Do not throttle ajax calls on Joomla 3.2 and above.
+var version = $.joomla.version.split("."),
+    majorVersion = version[0],
+    minorVersion = version[1];
+
+if (majorVersion >= 3 && minorVersion >= 2) {
+    self.interval = 0;
+}
 
 })();
-
-
