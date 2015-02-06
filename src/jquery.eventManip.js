@@ -22,3 +22,21 @@
 $.ns = function(event, ns) {
     return event.split(" ").join(ns + " ") + ns;
 };
+
+
+/**
+ * jquery.getPointerPosition
+ * Get pointer position whether it came from mouse or touch events.
+ */
+$.getPointerPosition = function(event) {
+
+    return event.type.match("touch") ?
+        {
+            x: event.originalEvent.changedTouches[0].pageX,
+            y: event.originalEvent.changedTouches[0].pageY
+        } :
+        {
+            x: event.pageX,
+            y: event.pageY
+        };
+};
