@@ -24,5 +24,7 @@ $.create = function(tagName) {
 
 $.fn.editable = function(editable) {
     if ($.isUndefined(editable)) return this.prop("contenteditable")==="true";
-    return this.prop("contenteditable", editable);
+    this.prop("contenteditable", editable);
+    editable===false && this.removeAttr("contenteditable");
+    return this;
 }
