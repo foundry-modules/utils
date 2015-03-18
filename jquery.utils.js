@@ -395,7 +395,7 @@ $.Task = function(props) {
 
                 task.list.push(item);
 
-                return task;
+                return item;
             },
             process: function() {
 
