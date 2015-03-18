@@ -18,9 +18,10 @@
  * jquery.fn.htmlData
  * Converts inline data attributes into objects.
  */
-$.fn.htmlData = function(prefix) {
+$.fn.htmlData = function(prefix, nested) {
 
-    var re = new RegExp("^" + "data-" + (prefix ? prefix + "-" : "") + "(.*)", "i"),
+    var nested = nested===undefined ? true : nested,
+        re = new RegExp("^" + "data-" + (prefix ? prefix + "-" : "") + "(.*)", "i"),
         parts,
         data = {};
 
@@ -28,18 +29,21 @@ $.fn.htmlData = function(prefix) {
     $.each(this[0].attributes, function(i, attr){
 
         if (attr.specified && (parts = attr.name.match(re)) && parts[1]) {
+            if (nested) {
+                var props = parts[1].split("-"),
+                    i, prop, obj = data; max = props.length - 1;
 
-            var props = parts[1].split("-"),
-                i, prop, obj = data; max = props.length - 1;
-
-            for (i=0; i<=max; i++) {
-                prop = props[i];
-                if (i==max) {
-                    obj[prop] = attr.value;
-                } else {
-                    !obj[prop] && (obj[prop] = {});
-                    obj = obj[prop];
+                for (i=0; i<=max; i++) {
+                    prop = props[i];
+                    if (i==max) {
+                        obj[prop] = attr.value;
+                    } else {
+                        !obj[prop] && (obj[prop] = {});
+                        obj = obj[prop];
+                    }
                 }
+            } else {
+                data[parts[1]] = attr.value;
             }
         }
     });

@@ -36,7 +36,7 @@ $.fn.switchClass = function(classname, delimiter){
 
 		var $el = $(this),
 			classnames =
-				$.map($el.attr("class").split(' '), function(classname){
+				$.map(($el.attr("class") || "").split(" "), function(classname){
 					return (classname.slice(0, length)==prefix || classname=="") ? null : classname;
 				});
 			classnames.push(classname);
